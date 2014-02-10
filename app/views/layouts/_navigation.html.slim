@@ -1,0 +1,14 @@
+nav.collapse.navbar-collapse.bs-navbar-collapse role="navigation"
+  ul.nav.navbar-nav
+    li = link_to 'Photos', photos_path
+    li = link_to 'Tags', tags_path
+  ul.nav.navbar-nav.navbar-right
+    - if user_signed_in?
+      li.dropdown
+        a.dropdown-toggle data-toggle="dropdown" href="#"
+          = current_user.email
+          b.caret
+        ul.dropdown-menu
+          li = link_to 'Logout', destroy_user_session_path, method: :delete
+    - else
+      li.navbar-right = link_to 'Login', new_user_session_path

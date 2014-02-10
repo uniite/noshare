@@ -1,0 +1,8 @@
+- if flash[:alert].present?
+  .alert.alert-danger
+    %a.close{ 'data-dismiss' => 'alert' } &#215;
+    #flash_alert= flash[:alert]
+- if flash[:notice].present?
+  .alert.alert-success
+    %a.close{ 'data-dismiss' => 'alert' } &#215;
+    #flash_notice= flash[:notice]

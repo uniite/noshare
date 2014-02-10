@@ -1,0 +1,9 @@
+.row
+  .col-md-12
+    h1 Edit Photo
+.row
+  .col-md-12
+    - # Form for adding additional tags
+    = simple_form_for @photo do |f|
+      = f.input :tag_list
+      = f.submit class: 'btn btn-primary'

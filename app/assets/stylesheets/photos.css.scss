@@ -1,0 +1,26 @@
+// Place all the styles related to the photos controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#viewfinder {
+  width: 400px;
+  height: 280px;
+}
+
+.photo {
+  img {
+    width: 100%;
+  }
+}
+.thumb {
+  padding: 0.1em;
+}
+
+.buttons {
+  margin-right: 0.6em;
+}
+
+.buttons, .tags .label {
+  display: inline-block;
+  margin-bottom: 0.5em;
+}

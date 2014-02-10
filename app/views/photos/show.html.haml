@@ -1,0 +1,13 @@
+.row
+  .col-md-12.text-left
+    .buttons
+      = link_to 'Edit', edit_photo_path(@photo), class: 'btn btn-default'
+      = link_to 'Download', download_photo_path(@photo), class: 'btn btn-default'
+    %h4.tags
+      - @photo.tags.each do |tag|
+        %a.label.label-primary{ href: tag_path(tag) }= tag
+
+.row
+  .col-md-6.col-sm-12.photo
+    %a{ href: @photo.file.url }
+      %img{ src: @photo.file.url(:medium) }
