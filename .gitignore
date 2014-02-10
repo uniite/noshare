@@ -14,3 +14,12 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# IDE Files
+/.idea
+
+# Dev Environment config
+/.env
+
+# Paperclip storage
+/public/photos
