@@ -1,12 +1,12 @@
 %h1 New Photo
 
-Source:
-%select#videoSource
-%br
-%video#viewfinder{ autoplay: true }
+/Source:
+/%select#videoSource
+/%br
+/%video#viewfinder{ autoplay: true }
 
-%h2 Upload
-%img#photoUploadPreview{ width: 400 }
+/%h2 Upload
+%img#photoUploadPreview
 = simple_form_for @photo do |f|
   = f.input :file, accept: 'image/*', capture: true
   = hidden_field_tag 'data_uri'

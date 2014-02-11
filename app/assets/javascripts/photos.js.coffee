@@ -39,19 +39,18 @@ readURI = (input) ->
   if input.files?[0]
     reader = new FileReader()
     reader.onload = (e) ->
-      console.log(e)
       storePhoto(e.target.result)
     reader.readAsDataURL(input.files[0])
 
 $(document).on "page:change", () ->
   return if $("#photo_file").length == 0
-  console.log('ok')
   if MediaStreamTrack
     $ () ->
       $("#photo_file").change () ->
         readURI(this)
       $("#videoSource").change () ->
         startViewfinder($(this).val())
+      return
       MediaStreamTrack.getSources (sources) ->
         i = 1
         for src in sources

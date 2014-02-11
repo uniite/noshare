@@ -4,7 +4,8 @@ class PhotosController < ApplicationController
 
 
   def index
-    @photos = Photo.all
+    #@photos = Photo.all
+    @photos_by_month = (Photo.all.order(:taken_at) * 4).group_by { |p| p.taken_at.beginning_of_month }
   end
 
   def new

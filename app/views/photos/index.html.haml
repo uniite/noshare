@@ -1,9 +1,8 @@
-.row
-  .col-md-12
-    %a.btn.btn-primary.pull-right(href=new_photo_path) Upload
-    %h1 Photos
-%br
-%br
-.row{ style: 'text-align: left' }
-  - (@photos * 8).each do |photo|
-    = render 'thumb', photo: photo
+- @photos_by_month.each do |month,photos|
+  .row{ style: 'text-align: left' }
+    %h3
+      = month.strftime('%B %Y')
+      &nbsp;
+      %small #{photos.count} photos
+    - photos.each do |photo|
+      = render 'thumb', photo: photo
