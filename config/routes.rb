@@ -6,6 +6,8 @@ Noshare::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'info#show'
 
+  get '/app', to: 'info#app'
+
   resources :photos do
     member do
       get :download

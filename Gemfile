@@ -62,6 +62,10 @@ gem 'simple_form'
 # HAML Templates
 gem 'haml-rails'
 
+# JSON Templates
+gem 'rabl'
+gem 'oj'
+
 # SLIM Template
 gem 'slim-rails'
 
@@ -77,3 +81,5 @@ gem 'modernizr-rails'
 # Bootstrap UI framework
 gem 'bootstrap-sass'
 
+# For JavaScript libs
+gem 'bower-rails', '~> 0.7.1'

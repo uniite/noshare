@@ -7,4 +7,8 @@ class InfoController < ApplicationController
 
   end
 
+  def app
+    
+  end
+
 end

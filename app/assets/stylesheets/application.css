@@ -11,6 +11,8 @@
  *= require bootstrap
  *= require_self
  *= require_tree .
+ *= require jquery-file-upload/css/jquery.fileupload
+ *= require jquery-file-upload/css/jquery.fileupload-ui
  */
 
 /* Ensure the body starts below the top navbar

@@ -1,8 +1,10 @@
 - @photos_by_month.each do |month,photos|
   .row{ style: 'text-align: left' }
-    %h3
-      = month.strftime('%B %Y')
-      &nbsp;
-      %small #{photos.count} photos
-    - photos.each do |photo|
-      = render 'thumb', photo: photo
+    .col-md-12
+      %h3
+        = month.strftime('%B %Y')
+        &nbsp;
+        %small #{photos.count} photos
+    .col-md-12
+      - photos.each do |photo|
+        = render 'thumb', photo: photo

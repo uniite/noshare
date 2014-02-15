@@ -4,12 +4,19 @@ class PhotosController < ApplicationController
 
 
   def index
-    #@photos = Photo.all
-    @photos_by_month = (Photo.all.order(:taken_at) * 4).group_by { |p| p.taken_at.beginning_of_month }
+    respond_to do |format|
+      format.html do
+        @photos_by_month = (Photo.all.order(:taken_at) * 4).group_by { |p| (p.taken_at || p.created_at).beginning_of_month }
+      end
+      format.json do
+        @photos = Photo.all * 8
+      end
+    end
   end
 
   def new
     @photo = Photo.new
+    render 'upload'
   end
 
   def create
@@ -20,7 +27,23 @@ class PhotosController < ApplicationController
       @photo = Photo.new(photo_params)
     end
     if @photo.save!
-      redirect_to photos_path
+      respond_to do |format|
+        format.any { redirect_to photos_path }
+        format.json do
+          render json: {
+            files: [
+              {
+                name: @photo.file_file_name,
+                size: @photo.file_file_size,
+                size: @photo.file.url,
+                thumbnailUrl: @photo.file.url(:thumb),
+                deleteUrl: photo_path(@photo),
+                deleteType: 'DELETE',
+              }
+            ]
+          }
+        end
+      end
     else
       render 'new'
     end
@@ -52,6 +75,18 @@ class PhotosController < ApplicationController
   end
 
   def destroy
+    respond_to do |format|
+      format.any { redirect_to photos_path }
+      format.json do
+        render json: {
+          files: [
+            {
+              @photo.file_file_name => true
+            }
+          ]
+        }
+      end
+    end
   end
 
 private
