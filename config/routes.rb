@@ -1,4 +1,7 @@
 Noshare::Application.routes.draw do
+
+  mount ResqueWeb::Engine => '/resque'
+
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -6,9 +9,13 @@ Noshare::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'info#show'
 
-  get '/app', to: 'info#app'
+  get '/app(/*path)', to: 'info#app'
 
   resources :photos do
+    collection do
+      get :new_bulk
+      post :create_bulk
+    end
     member do
       get :download
       post :remove_tag

@@ -1,0 +1,54 @@
+<script>
+    $(function() {
+      window.db = new PouchDB('photos');
+      window.router = new Router();
+      window.photosController = new PhotosController();
+      router.go("/app")
+    });
+</script>
+
+<div id="home" class="view"></div>
+<script id="photosTemplate" type="text/doT">
+<div class="container">
+{{~it.keys :k:i}}
+  {{ var photos = it.photos[k]; }}
+  <div class="row" data-period="{{=k}}">
+    <div class="col-md-12">
+      <h1>
+        {{=k}}
+        &nbsp;
+        <small>{{=photos.length}} photos</small>
+      </h2>
+      {{~photos :photo:index}}
+        <img class="photo-thumb" src="{{=photo.value.thumb_data}}" />
+      {{~}}
+    </div>
+  </div>
+{{~}}
+</div>
+<br />
+<br />
+</script>
+
+<div id="photosZoom" class="view"></div>
+<script id="photosZoomTemplate" type="text/doT">
+<div class="container">
+<div class="row" style="text-align: left" data-period="{{=it.period}}">
+    <div class="col-md-12">
+      <h1>
+        {{=it.period}}
+        &nbsp;
+        <small>{{=it.photos.length}} photos</small>
+      </h2>
+      {{~it.photos :photo:index}}
+        <img class="photo-medium" data-id="{{=photo.value._id}}" src="{{=photo.value.thumb_url}}" />
+      {{~}}
+    </div>
+</div>
+</div>
+</script>
+
+<div id="photoDetail" class="view"></div>
+<script id="photoDetailTemplate" type="text/doT">
+<%= render 'photo_detail' %>
+</script>

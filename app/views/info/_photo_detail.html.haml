@@ -1,0 +1,18 @@
+{{ var photo = it; }}
+.container
+  .row
+    .col-md-12.text-left
+      .buttons
+        %a{ class: 'btn btn-default', href: '/app/photos/{{=photo.id}}/edit' }
+          Edit
+        %a{ class: 'btn btn-default', href: '/photos/{{=photo.id}}/download' }
+          Download
+      %h4.tags
+        {{~photo.tags :tag:i}}
+        %a.label.label-primary{ href: '/tags/{{=tag}}' } {{=tag}}
+        {{~}}
+
+  .row
+    .col-md-12
+      .photo
+        %img{ src: '{{=photo.url}}' }

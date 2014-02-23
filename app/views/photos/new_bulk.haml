@@ -1,0 +1,6 @@
+%h1 Bulk Upload
+
+= simple_form_for :photo, url: create_bulk_photos_path, html: { method: :post, multipart: true } do |f|
+  = file_field_tag 'files[]', multiple: true
+  %br
+  = f.submit 'Upload', class: 'btn btn-primary'

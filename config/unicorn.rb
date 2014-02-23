@@ -1,7 +1,7 @@
 unless ENV['BOXEN_SOCKET_DIR'].nil?
   worker_processes 2
   listen "#{ENV['BOXEN_SOCKET_DIR']}/noshare", :backlog => 1024
-  timeout 120
+  timeout 600
 end
 
 after_fork do |server, worker|

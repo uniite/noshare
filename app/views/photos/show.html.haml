@@ -8,6 +8,6 @@
         %a.label.label-primary{ href: tag_path(tag) }= tag
 
 .row
-  .col-md-6.col-sm-12.photo
-    %a{ href: @photo.file.url }
-      %img{ src: @photo.file.url(:medium) }
+  .col-md-12
+    .photo
+      %img{ src: @photo.file.url, style: 'cursor: pointer; max-height: 100%; max-width: 100%;' }

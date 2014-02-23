@@ -2,13 +2,17 @@
 $(function() {
   // Initialize the jQuery File Upload widget:
   $('#fileupload').fileupload({
-    // Uncomment the following to send cross-domain cookies:
-    //xhrFields: {withCredentials: true},
+    disableExif: true,
+    disableImagePreview: true,
     paramName: 'photo[file]',
     url: '/photos'
   });
 });
 </script>
+
+<div class="alert alert-info">
+  Need to upload a lot of photos? Use the <%= link_to 'bulk upload tool', new_bulk_photos_path %>
+</div>
 
 <!-- The file upload form used as target for the file upload widget -->
 <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">

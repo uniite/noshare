@@ -1,0 +1,14 @@
+{
+  "name": "dsl-generated dependencies",
+  "dependencies": {
+    "doT": "1.0.1",
+    "gsap": "1.11.5",
+    "hammerjs": "1.0.6",
+    "history.js": "1.8.0",
+    "jquery-hammerjs": "1.0.1",
+    "jquery-file-upload": "9.5.6",
+    "jquery_lazyload": "git@github.com:tuupola/jquery_lazyload.git",
+    "moment": "2.5.1",
+    "underscore": "1.6.0"
+  }
+}

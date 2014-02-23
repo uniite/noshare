@@ -3,7 +3,7 @@
 //
 // Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
 // or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
-//
+//w
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // compiled file.
 //
@@ -11,11 +11,17 @@
 // about supported directives.
 //
 //= require jquery
+//= require underscore
 //= require jquery_ujs
-//= require turbolinks
+// require turbolinks
 //= require modernizr
 //= require bootstrap
+//= require pouchdb
 //= require doT/doT
+//= require hammerjs
+//= require history.js/scripts/bundled-uncompressed/html4+html5/jquery.history.js
+//= require jquery-hammerjs
+//= require jquery_lazyload
 //= require moment
 //= require jquery-file-upload/js/vendor/jquery.ui.widget
 //= require blueimp-tmpl/js/tmpl.min

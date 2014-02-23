@@ -2,6 +2,16 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+# Find the right method, call on correct element
+launchFullscreen = (element) ->
+  if element.requestFullscreen
+    element.requestFullscreen()
+  else if element.mozRequestFullScreen
+    element.mozRequestFullScreen()
+  else if element.webkitRequestFullscreen
+    element.webkitRequestFullscreen()
+  else if element.msRequestFullscreen
+    element.msRequestFullscreen()
 
 startViewfinder = (videoSource) ->
   viewfinder = $("#viewfinder")[0]
@@ -43,8 +53,7 @@ readURI = (input) ->
     reader.readAsDataURL(input.files[0])
 
 $(document).on "page:change", () ->
-  return if $("#photo_file").length == 0
-  if MediaStreamTrack
+  if MediaStreamTrack and $("#photo_file").length > 0
     $ () ->
       $("#photo_file").change () ->
         readURI(this)
@@ -59,3 +68,24 @@ $(document).on "page:change", () ->
             $("#videoSource").append("<option value='#{src.id}'>#{label}</option>")
             i += 1
         startViewfinder()
+
+  # Show the photo fullscreen when tapped/clicked
+  $(".photo").click () ->
+    launchFullscreen(this)
+
+  fullScreenChanged = (enabled) ->
+    console.log(enabled)
+    if enabled?
+      $(".photo").addClass("fullscreen")
+    else
+      $(".photo").removeClass("fullscreen")
+
+  fullscreenEvents =
+    "": "fullscreen"
+    ms: "msFullscreenElement"
+    moz: "mozFullScreen"
+    webkit: "webkitIsFullScreen"
+
+  for prefix, event of fullscreenEvents
+    document.addEventListener "#{prefix}fullscreenchange", () ->
+      fullScreenChanged(document[event])

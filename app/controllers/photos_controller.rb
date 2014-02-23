@@ -6,10 +6,10 @@ class PhotosController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        @photos_by_month = (Photo.all.order(:taken_at) * 4).group_by { |p| (p.taken_at || p.created_at).beginning_of_month }
+        @photos_by_month = (Photo.all.order(:taken_at)).group_by { |p| (p.taken_at || p.created_at).beginning_of_month }
       end
       format.json do
-        @photos = Photo.all * 8
+        @photos = Photo.all
       end
     end
   end
@@ -47,6 +47,30 @@ class PhotosController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def new_bulk
+  end
+
+  def create_bulk
+    processed = []
+    failed = []
+    params[:files].each do |f|
+      begin
+        Photo.create!(file: f)
+        processed << f
+      rescue => e
+        logger.error e
+        failed << f
+      end
+    end
+    if failed.empty?
+      flash[:notice] = "Added #{params[:files].size} photos."
+    else
+      flash[:alert] = "Added #{processed.size}. " +
+                      "Failed to process the following files: #{failed.map(&:original_filename).join(', ')}"
+    end
+    redirect_to photos_path
   end
 
   def show
