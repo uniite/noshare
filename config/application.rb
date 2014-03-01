@@ -22,5 +22,7 @@ module Noshare
 
     config.assets.paths << Rails.root.join('app', 'assets', 'bower_components')
 
+    config.active_record.observers = :photo_observer
+
   end
 end

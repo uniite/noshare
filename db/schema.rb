@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140210025006) do
+ActiveRecord::Schema.define(version: 20140226014826) do
 
   create_table "photos", force: true do |t|
     t.datetime "created_at"
@@ -22,6 +22,11 @@ ActiveRecord::Schema.define(version: 20140210025006) do
     t.datetime "file_updated_at"
     t.string   "file_fingerprint"
     t.datetime "taken_at"
+  end
+
+  create_table "revisions", force: true do |t|
+    t.integer "record_id"
+    t.string  "record_type"
   end
 
   create_table "taggings", force: true do |t|

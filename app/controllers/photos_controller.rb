@@ -9,7 +9,43 @@ class PhotosController < ApplicationController
         @photos_by_month = (Photo.all.order(:taken_at)).group_by { |p| (p.taken_at || p.created_at).beginning_of_month }
       end
       format.json do
-        @photos = Photo.all
+        # Use a transaction to ensure the revision doesn't change after we query the photos
+        Photo.transaction do
+          if params[:since]
+            photo_ids = Revision.where('id > ?', Integer(params[:since])).where(record_type: 'Photo').pluck(:record_id)
+            @photos = Photo.where(id: photo_ids)
+            # Figure out which ids were deleted
+            @deleted = photo_ids - @photos.map(&:id)
+          else
+            @deleted = []
+            @photos = Photo.all
+          end
+          @revision = Revision.maximum(:id)
+        end
+
+        photo_list = @photos.map do |p|
+          {
+            id: p.id,
+            taken_at: p.timestamp.to_i,
+            thumb_data: p.thumb_data,
+            thumb_url: p.file.url(:thumb),
+            url: p.file.url,
+            tags: p.tag_list,
+            year: p.timestamp.year,
+            month: p.timestamp.month,
+            month_trunc: p.timestamp.beginning_of_month.to_i,
+          }
+        end
+
+        photos_hash = {
+          revision: @revision,
+          photos: {
+            deleted: @deleted,
+            updated: photo_list
+          }
+        }
+
+        render json: photos_hash
       end
     end
   end

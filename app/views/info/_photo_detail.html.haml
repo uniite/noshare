@@ -1,4 +1,4 @@
-{{ var photo = it; }}
+{{ var photo = it.photo; }}
 .container
   .row
     .col-md-12.text-left
@@ -15,4 +15,4 @@
   .row
     .col-md-12
       .photo
-        %img{ src: '{{=photo.url}}' }
+        %img{ src: '{{=it.host}}{{=photo.url}}' }

@@ -1,10 +1,14 @@
 <script>
     $(function() {
+      window.noshareHost = <%= raw (ENV['NOSHARE_HOST'] || (request.protocol + request.host_with_port)).to_json %>;
       window.db = new PouchDB('photos');
       window.router = new Router();
       window.photosController = new PhotosController();
       router.go("/app")
     });
+//    {{~photos :photo:index}}
+//    <img class="photo-thumb" src="{{=photo.value.thumb_data}}" />
+//    {{~}}
 </script>
 
 <div id="home" class="view"></div>
@@ -18,10 +22,9 @@
         {{=k}}
         &nbsp;
         <small>{{=photos.length}} photos</small>
-      </h2>
-      {{~photos :photo:index}}
-        <img class="photo-thumb" src="{{=photo.value.thumb_data}}" />
-      {{~}}
+      </h1>
+      <div class="photo-section" data-year={{=k}}>
+      </div>
     </div>
   </div>
 {{~}}
@@ -39,9 +42,9 @@
         {{=it.period}}
         &nbsp;
         <small>{{=it.photos.length}} photos</small>
-      </h2>
+      </h1>
       {{~it.photos :photo:index}}
-        <img class="photo-medium" data-id="{{=photo.value._id}}" src="{{=photo.value.thumb_url}}" />
+        <img class="photo-medium" data-id="{{=photo._id}}" src="{{=photo.thumb_data}}" />
       {{~}}
     </div>
 </div>

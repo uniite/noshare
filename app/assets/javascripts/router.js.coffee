@@ -9,7 +9,6 @@ class @Router
     @navgating = true
     #@navgating = true
     History.pushState(null, null, path)
-    @resetScroll()
 
   goBack: () =>
     previous = @historyStack.pop()
@@ -24,14 +23,8 @@ class @Router
     transitionEnd = "webkitTransitionEnd msTransitionEnd transitionend"
     $currentView.one transitionEnd, () ->
       $currentView.removeClass("current-view")
-      $(document).scrollTop(previous.scrollTop)
       # Using one on its own wasn't working very well
       $(this).off(transitionEnd)
-      #$oldView.hide()
-    #setTimeout(hideView, 400)
-
-  resetScroll: () ->
-    $(document).scrollTop(0)
 
   processStateChange: () =>
     state = History.getState()
@@ -49,7 +42,6 @@ class @Router
     console.log("Load route #{path}")
     currentViewID = $(".current-view").attr("id")
     @historyStack.push
-      scrollTop: $(document).scrollTop()
       path: path
       viewID: currentViewID
     $(".current-view").removeClass("current-view")

@@ -73,7 +73,7 @@ gem 'slim-rails'
 gem 'exifr'
 
 # Loads Environment Variables from .env
-gem 'dotenv-rails', group: [:development, :test]
+gem 'dotenv-rails'
 
 # Helps with JavaScript feature detection
 gem 'modernizr-rails'
@@ -90,3 +90,8 @@ gem 'resque', '~> 1.25.1'
 gem 'resque-web', require: 'resque_web'
 
 gem 'koala', '~> 1.9.0'
+
+gem 'faraday'
+gem 'faraday_middleware', '~> 0.9.0'
+
+gem 'rails-observers'

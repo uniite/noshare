@@ -2,9 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-html, body, .container {
+html, body {
   max-width: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 #viewfinder {
@@ -73,16 +73,31 @@ html, body, .container {
 .view {
   left: 100%;
   display: none;
-  margin-top: 70px;
   background: white;
   width: 100%;
   min-height: 100%;
   position: absolute;
   #-webkit-transform: translate3d(100%, 0, 0);
   top: 0;
-  transition: 0.4s;
-  -webkit-transition: 0.4s;
-  font-size: 0;
+  height: 100%;
+}
+
+.view .container {
+  // Pushes the view's content below the header
+  margin-top: 70px;
+}
+
+.view,
+.scrollable {
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-transition-property: top, bottom;
+  transition-property: top, bottom;
+  -webkit-transition-duration: .2s, .2s;
+  transition-duration: .2s, .2s;
+  -webkit-transition-timing-function: linear, linear;
+  transition-timing-function: linear, linear;
+  -webkit-overflow-scrolling: touch;
 }
 
 #home {
@@ -96,6 +111,34 @@ html, body, .container {
   display: block !important;
 }
 
+// Apply it on both classes to get both forwad and back animations working
+.view,
+.main-view {
+  transition: transform 0.4s;
+  -webkit-transition: -webkit-transform 0.4s ease;
+}
+
 .main-view {
   -webkit-transform: translate3d(-100%, 0, 0) !important;
+}
+
+.spin {
+  -webkit-animation: spin 1s infinite linear;
+  animation: spin 1s infinite linear;
+}
+
+@-webkit-keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
+}
+
+@-moz-keyframes spin {
+  to { -moz-transform: rotate(360deg); }
+}
+
+@-ms-keyframes spin {
+  to { -ms-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
