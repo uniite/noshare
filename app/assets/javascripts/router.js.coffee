@@ -1,9 +1,10 @@
 class @Router
   constructor: ->
     @historyStack = [];
-    window.onpopstate = () =>
+    History.Adapter.bind window, 'statechange', () =>
       console.log("State change!")
       @processStateChange()
+
 
   go: (path) =>
     @navgating = true
@@ -20,6 +21,7 @@ class @Router
     $newView.addClass("current-view")
     $currentView[0].offsetHeight
     $currentView.removeClass("main-view")
+    $("header").removeClass("slide-up")
     transitionEnd = "webkitTransitionEnd msTransitionEnd transitionend"
     $currentView.one transitionEnd, () ->
       $currentView.removeClass("current-view")

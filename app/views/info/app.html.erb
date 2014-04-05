@@ -4,7 +4,8 @@
       window.db = new PouchDB('photos');
       window.router = new Router();
       window.photosController = new PhotosController();
-      router.go("/app")
+      router.go("/app");
+      router.processStateChange();
     });
 //    {{~photos :photo:index}}
 //    <img class="photo-thumb" src="{{=photo.value.thumb_data}}" />
@@ -47,7 +48,7 @@
         <img class="photo-medium" data-id="{{=photo._id}}" src="{{=photo.thumb_data}}" />
       {{~}}
     </div>
-</div>
+  </div>
 </div>
 </script>
 

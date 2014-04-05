@@ -130,7 +130,6 @@ class @PhotosController
       console.log("show year #{year}")
       photos = @photosByYear[year]
       $view = $("#photosZoom");
-      console.log(photos)
       @render $view, @showYearTemplate({host: noshareHost, period: year, photos: photos}),
         transition: true
         callback: () ->
@@ -144,19 +143,26 @@ class @PhotosController
         console.error(err)
         alert("Error!")
         return
-      console.log(photo)
-      $view = $("#photoDetail");
+      $view = $("#photoDetail")
       @render $view, @showDetailTemplate({photo: photo, host: noshareHost}),
+        fullscreen: true
         transition: true
         callback: () =>
-          $(".photo").hammer().on "tap", (event) =>
-            @launchFullscreen($(this)[0])
+          controller = @
+          $(".photo").click (event) ->
+            controller.launchFullscreen(this)
 
 
   showLoading: ($view) ->
     $view[0].innerHTML = "<div class='container'>" +
       "<h3 class='text-center'><span class='glyphicon glyphicon-refresh spin'></span></h3>" +
     "</div>"
+
+  hideHeader: () ->
+    $("header").addClass("slide-up")
+
+  showHeader: () ->
+    $("header").removeClass("slide-up")
 
   render: ($view, html, options) ->
     $view.addClass("current-view")
@@ -165,5 +171,9 @@ class @PhotosController
     $view.scrollTop(0)
     if options?.transition
       $view.addClass("main-view")
+    if options?.fullscreen
+      @hideHeader()
+    else
+      @showHeader()
     # Call the callback if we were given one
     options.callback?()

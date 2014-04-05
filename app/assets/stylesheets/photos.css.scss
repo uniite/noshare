@@ -7,6 +7,12 @@ html, body {
   overflow: hidden;
 }
 
+
+header.slide-up {
+  -webkit-transform: translate3d(0, -80px, 0);
+}
+
+
 #viewfinder {
   width: 400px;
   height: 280px;
@@ -59,15 +65,34 @@ html, body {
 }
 
 .photo img {
-  max-height: 70%;
-  max-width: 90%;
+  max-height: 100%;
+  max-width: 100%;
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }
 
-.photo.fullscreen {
-  background: black;
+.photo:fullscreen,
+.photo:-webkit-fullscreen {
   width: 100%;
   height: 100%;
   text-align: center;
+}
+
+.lightbox {
+  background: black;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.lightbox, .lightbox .photo {
+  z-index: 1100;
 }
 
 .view {
@@ -112,6 +137,7 @@ html, body {
 }
 
 // Apply it on both classes to get both forwad and back animations working
+header,
 .view,
 .main-view {
   transition: transform 0.4s;
