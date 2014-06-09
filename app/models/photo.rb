@@ -2,12 +2,24 @@ class Photo < ActiveRecord::Base
 
   attr_accessor :new_tags
 
-  THUMB_HEIGHT = 50
-  THUMB_TYPE = 'jpg'
+  THUMB_SIZE = 50
+  MEDIUM_SIZE = 200
+  LARGE_SIZE = 2048
+  THUMB_TYPE = :jpg
 
   has_attached_file :file,
-                    styles: { thumb: ["#{THUMB_HEIGHT}x#{THUMB_HEIGHT}#", THUMB_TYPE] },
-                    convert_options: { :thumb => '-quality 90 -interlace Plane' },
+                    styles: {
+                      thumb: ["#{THUMB_SIZE}x#{THUMB_SIZE}#", THUMB_TYPE],
+                      medium: ["#{MEDIUM_SIZE}x#{MEDIUM_SIZE}#", :jpg],
+                      large: ["#{LARGE_SIZE}x#{LARGE_SIZE}>", :jpg],
+                      large_webp: ["#{LARGE_SIZE}x#{LARGE_SIZE}>", :webp],
+                    },
+                    convert_options: {
+                      thumb: '-quality 90 -interlace Plane',
+                      medium: '-quality 85 -interlace Plane',
+                      large: '-quality 85',
+                      large_webp: '-quality 85 -define webp:method=6',
+                    },
                     default_url: '/images/:style/missing.png',
                     url: '/photos/:hash.:extension',
                     hash_secret: ENV['PHOTO_HASH_SECRET'],
@@ -16,7 +28,7 @@ class Photo < ActiveRecord::Base
 
   validates_attachment_content_type :file, :content_type => /\Aimage\/.*\Z/
   validates_attachment_presence :file
-  #process_in_background :file
+  process_in_background :file
   after_post_process :parse_exif
   after_post_process :update_couch
 

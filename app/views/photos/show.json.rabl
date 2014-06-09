@@ -14,6 +14,10 @@ node :thumb_url do |photo|
   photo.file.url(:thumb, false)
 end
 
+node :medium_url do |photo|
+  photo.file.url(:medium, false)
+end
+
 node :url do |photo|
   photo.file.url
 end

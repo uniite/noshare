@@ -134,8 +134,13 @@ class @PhotosController
         transition: true
         callback: () ->
           $(".photo-medium").hammer().on "tap", (event) ->
+            $(this).addClass("touched")
             id = $(this).data("id")
             window.router.go("/app/photos/#{id}")
+          $(".photo-medium").hammer().on "tap", (event) ->
+            setTimeout () =>
+              $(this).removeClass("touched")
+            , 100
 
   showDetail: (id) ->
     db.get id, (err, photo) =>

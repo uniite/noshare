@@ -23,6 +23,7 @@
 //= require jquery-hammerjs
 // require jquery_lazyload
 //= require moment
+//= require swipeview
 // require jquery-file-upload/js/vendor/jquery.ui.widget
 // require blueimp-tmpl/js/tmpl.min
 // require blueimp-load-image/js/load-image.min

@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
+gem 'sprockets', '~> 2.11.0'
 
 # Use MySQL as the database for Active Record
 gem 'mysql2'
@@ -72,8 +73,14 @@ gem 'slim-rails'
 # EXIF Reader
 gem 'exifr'
 
-# Loads Environment Variables from .env
-gem 'dotenv-rails'
+group :development, :test do
+  # Loads Environment Variables from .env
+  gem 'dotenv-rails'
+  # Security testing
+  #gem 'brakeman', require: false
+  # Pre-loads for faster rails startup
+  #gem 'spring'
+end
 
 # Helps with JavaScript feature detection
 gem 'modernizr-rails'

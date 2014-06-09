@@ -28,12 +28,16 @@ class PhotosController < ApplicationController
             id: p.id,
             taken_at: p.timestamp.to_i,
             thumb_data: p.thumb_data,
-            thumb_url: p.file.url(:thumb),
-            url: p.file.url,
+            thumb_url: p.file.url(:thumb, false),
+            medium_url: p.file.url(:medium, false),
+            large_url: p.file.url(:large, false),
+            large_webp_url: p.file.url(:large_webp, false),
+            url: p.file.url(:original, false),
             tags: p.tag_list,
             year: p.timestamp.year,
             month: p.timestamp.month,
             month_trunc: p.timestamp.beginning_of_month.to_i,
+
           }
         end
 

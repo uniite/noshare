@@ -40,7 +40,17 @@ header.slide-up {
   cursor: pointer;
   margin: 0 5px 5px 0;
   height: 100px;
-  width: 100px
+  width: 100px;
+
+  //-webkit-transition: padding 2s ease, height 2s ease;
+  //-moz-transition: padding 2s ease, height 2s ease;
+  //-ms-transition: padding 2s ease, height 2s ease;
+  transition: padding 0.2s ease;
+}
+
+.photo-medium:active,
+.photo-medium.touched {
+  padding: 5px;
 }
 
 .photo-thumb {

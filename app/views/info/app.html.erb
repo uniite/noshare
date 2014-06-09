@@ -4,6 +4,11 @@
       window.db = new PouchDB('photos');
       window.router = new Router();
       window.photosController = new PhotosController();
+      window.imageCache = new Cache();
+      imageCache.initialize().then(
+        function() { console.log('yay!'); },
+        function() { console.log('boo!'); }
+      );
       router.go("/app");
       router.processStateChange();
     });
@@ -45,7 +50,7 @@
         <small>{{=it.photos.length}} photos</small>
       </h1>
       {{~it.photos :photo:index}}
-        <img class="photo-medium" data-id="{{=photo._id}}" src="{{=photo.thumb_data}}" />
+        <img class="photo-medium" data-id="{{=photo._id}}" src="{{=photo.medium_url}}" />
       {{~}}
     </div>
   </div>
